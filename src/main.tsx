@@ -10,6 +10,10 @@ import { AboutPage } from "./routes/AboutPage";
 import { PostPage } from "./routes/PostPage";
 import { ThemeProvider } from "./providers/ThemeProvider";
 
+// https://github.com/mithril-eu/react-beginner-materials
+
+// https://www.surveymonkey.com/r/LHG5FSF
+
 const router = createBrowserRouter([
   {
     path: "/",

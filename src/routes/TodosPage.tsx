@@ -1,12 +1,16 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import DeleteIcon from "../assets/delete.svg?react";
 import { Todo } from "../types";
+import { useNavigate } from "react-router-dom";
 // import { FaBeer } from "react-icons/fa";
 
-const initialTodos: Todo[] = [{ id: 1, text: "Testni TODO", completed: false }];
-
 export function TodosPage() {
-  const [todos, setTodos] = useState(initialTodos);
+  const [todos, setTodos] = useState<Todo[]>(() => {
+    const todos = localStorage.getItem("todos");
+    return todos ? JSON.parse(todos) : [];
+  });
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,6 +21,8 @@ export function TodosPage() {
     setTodos((prevState) => [...prevState, newTodo]);
 
     e.currentTarget.reset();
+
+    navigate("/home");
   };
 
   const toggleCompleted = (id: number) => {
@@ -38,6 +44,10 @@ export function TodosPage() {
       return updatedState;
     });
   };
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   return (
     <div>
