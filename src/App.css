@@ -1,0 +1,26 @@
+.task-list {
+  list-style-type: none;
+
+  li {
+    color: red;
+    width: 300px;
+    background-color: aqua;
+    color: black;
+    margin-bottom: 20px;
+
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-left: auto;
+    }
+
+    svg:hover {
+      color: red;
+    }
+  }
+}
+
+input[type="checkbox"]:checked + span {
+  text-decoration: line-through;
+}
