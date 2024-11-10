@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
-import DeleteIcon from "../assets/delete.svg?react";
+
 import { Todo } from "../types";
-import { useNavigate } from "react-router-dom";
+import { TodoItem } from "../components/Todo";
 // import { FaBeer } from "react-icons/fa";
 
 export function TodosPage() {
@@ -9,8 +9,6 @@ export function TodosPage() {
     const todos = localStorage.getItem("todos");
     return todos ? JSON.parse(todos) : [];
   });
-
-  const navigate = useNavigate();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,8 +19,6 @@ export function TodosPage() {
     setTodos((prevState) => [...prevState, newTodo]);
 
     e.currentTarget.reset();
-
-    navigate("/home");
   };
 
   const toggleCompleted = (id: number) => {
@@ -60,21 +56,12 @@ export function TodosPage() {
 
       <ul className="task-list">
         {todos.map((todo) => (
-          <li key={todo.id}>
-            <input
-              type="checkbox"
-              checked={todo.completed}
-              onChange={() => toggleCompleted(todo.id)}
-            />
-            <span>{todo.text}</span>
-            {/* <button onClick={() => deleteTodo(todo.id)}>X</button> */}
-            {/* <img src={deleteIcon} alt="Delete icon" width={20} height={20} /> */}
-            <DeleteIcon
-              width={20}
-              height={20}
-              onClick={() => deleteTodo(todo.id)}
-            />
-          </li>
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            toggleCompleted={toggleCompleted}
+            deleteTodo={deleteTodo}
+          />
         ))}
       </ul>
     </div>
